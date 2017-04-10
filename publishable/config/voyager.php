@@ -218,4 +218,18 @@ return [
 
     'show_dev_tips' => true, // Show development tip "How To Use:" in Menu and Settings
 
+    'real_time_co' => [
+        'application_key' => '',
+        'private_key' => '',
+        'authentication_token' => '',
+        'policies' => [
+            'database' => [
+                "listTables" => ["*"],
+                "createTable" => true,
+                "updateTable" => ["*"],
+                "deleteTable" => ["*"]
+            ]
+        ]
+    ]
+
 ];
