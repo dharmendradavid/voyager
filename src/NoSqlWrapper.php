@@ -23,7 +23,7 @@ class NoSqlWrapper
      * @param $schemas
      * @return $this
      */
-    protected function authenticate($schemas)
+    public function authenticate($schemas)
     {
         $table = [
             "schema" => [
@@ -80,6 +80,8 @@ class NoSqlWrapper
             ]
         ]);
 
+        $this->storeItem($schema['name'], $schema['name'], $schema['content']);
+
         return $this;
     }
 
@@ -114,14 +116,14 @@ class NoSqlWrapper
      * Function stores content inside a table in no sql database
      *
      * @param string $table Table to store content into
-     * @param string $keyIndex Index which will be the primary key
+     * @param string $key Index which will be the primary key
      * @param mixed $content Main content to be put
      * @return $this
      */
-    public function putItem($table, $keyIndex, $content)
+    public function storeItem($table, $key, $content)
     {
 
-        $content['meta_data'] = md5($keyIndex);
+        $content['meta_data'] = md5($content[$key]);
 
         $this->client->request('POST', config('voyager.real_time_co.auth_url') . '/putItem', [
             'json' => [
@@ -140,12 +142,12 @@ class NoSqlWrapper
      * Function delete's item from table at given key
      *
      * @param string $table
-     * @param array $key
+     * @param mixed $key
      * @return $this
      */
     public function deleteItem($table, $key)
     {
-        $this->client->request('POST', config('voyager.real_time_co.auth_url') . '/putItem', [
+        $this->client->request('POST', config('voyager.real_time_co.auth_url') . '/deleteItem', [
             'json' => [
                 'applicationKey'=> config('voyager.real_time_co.application_key'),
                 'privateKey' => config('voyager.real_time_co.private_key'),
@@ -171,9 +173,9 @@ class NoSqlWrapper
      */
     public function updateItem($table, $key, $content)
     {
-        $content['meta_data'] = md5($key);
+        $content['meta_data'] = md5($content[$key]);
 
-        $this->client->request('POST', config('voyager.real_time_co.auth_url') . '/putItem', [
+        $this->client->request('POST', config('voyager.real_time_co.auth_url') . '/updateItem', [
             'json' => [
                 'applicationKey'=> config('voyager.real_time_co.application_key'),
                 'privateKey' => config('voyager.real_time_co.private_key'),
@@ -188,6 +190,54 @@ class NoSqlWrapper
         ]);
 
         return $this;
+    }
+
+    /**
+     * Function fetches the content from the no sql database for given table and key
+     *
+     * @param string $table Table name where content exists
+     * @param mixed $key Primary search key
+     * @return mixed
+     */
+    public function getItem($table, $key)
+    {
+        $content['meta_data'] = md5($key);
+
+        $item = $this->client->request('POST', config('voyager.real_time_co.auth_url') . '/getItem', [
+            'json' => [
+                'applicationKey'=> config('voyager.real_time_co.application_key'),
+                'privateKey' => config('voyager.real_time_co.private_key'),
+                'authenticationToken' => config('voyager.real_time_co.authentication_token'),
+                'table' => $table,
+                "key" => [
+                    'primary' => $key,
+                    'secondary' => md5($key)
+                ]
+            ]
+        ]);
+
+        return $item;
+    }
+
+    /**
+     * Function fetches the all items from the table in no sql database
+     *
+     * @param string $table Table from which data is to be fetched
+     * @param null $limit
+     * @return mixed|\Psr\Http\Message\ResponseInterface
+     */
+    public function listItems($table, $limit = null)
+    {
+        $lists = $this->client->request('POST', config('voyager.real_time_co.auth_url') . '/getItem', [
+            'json' => [
+                'applicationKey'=> config('voyager.real_time_co.application_key'),
+                'privateKey' => config('voyager.real_time_co.private_key'),
+                'authenticationToken' => config('voyager.real_time_co.authentication_token'),
+                'table' => $table,
+            ]
+        ]);
+
+        return $lists;
     }
 
 }

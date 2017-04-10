@@ -222,6 +222,7 @@ return [
         'application_key' => '',
         'private_key' => '',
         'authentication_token' => '',
+        'auth_url' => '',
         'policies' => [
             'database' => [
                 "listTables" => ["*"],
