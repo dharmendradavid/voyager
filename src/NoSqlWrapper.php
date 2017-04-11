@@ -106,10 +106,7 @@ class NoSqlWrapper
         ]);
 
         //deleting entry of table from schema
-        $this->deleteItem('schema', [
-            'primary' => $table,
-            'secondary' => md5($table)
-        ]);
+        $this->deleteItem('schema', $table);
 
         return $this;
     }
@@ -175,7 +172,7 @@ class NoSqlWrapper
      */
     public function updateItem($table, $key, $content)
     {
-        $content['meta_data'] = md5($content[$key]);
+        unset($content['id']);
 
         $this->client->request('POST', config('voyager.real_time_co.auth_url') . '/updateItem', [
             'json' => [

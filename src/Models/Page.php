@@ -48,4 +48,24 @@ class Page extends Model
     {
         return $query->where('status', static::STATUS_ACTIVE);
     }
+
+    /**
+     * Booting event handlers thrown by models
+     */
+    public static function boot() {
+
+        parent::boot();
+
+        static::created(function($page) {
+            event(new \TCG\Voyager\Events\NoSqlModelCreated('pages','id', $page->getAttributes()));
+        });
+
+        static::updated(function($page) {
+            event(new \TCG\Voyager\Events\NoSqlModelUpdated('pages',$page->id, $page->getAttributes()));
+        });
+
+        static::deleted(function($page) {
+            event(new \TCG\Voyager\Events\NoSqlModelDeleted('pages',$page->id));
+        });
+    }
 }

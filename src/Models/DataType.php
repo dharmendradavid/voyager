@@ -163,4 +163,24 @@ class DataType extends Model
             return $model->adminFields();
         }
     }
+
+    /**
+     * Booting event handlers thrown by models
+     */
+    public static function boot() {
+
+        parent::boot();
+
+        static::created(function($datatype) {
+            event(new \TCG\Voyager\Events\NoSqlModelCreated('data_types','id', $datatype->getAttributes()));
+        });
+
+        static::updated(function($datatype) {
+            event(new \TCG\Voyager\Events\NoSqlModelUpdated('data_types',$datatype->id, $datatype->getAttributes()));
+        });
+
+        static::deleted(function($datatype) {
+            event(new \TCG\Voyager\Events\NoSqlModelDeleted('data_types',$datatype->id));
+        });
+    }
 }

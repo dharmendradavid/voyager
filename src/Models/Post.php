@@ -67,4 +67,24 @@ class Post extends Model
         // We merge original name + type + extension
         return $name.'-'.$type.'.'.$ext;
     }
+
+    /**
+     * Booting event handlers thrown by models
+     */
+    public static function boot() {
+
+        parent::boot();
+
+        static::created(function($post) {
+            event(new \TCG\Voyager\Events\NoSqlModelCreated('posts','id', $post->getAttributes()));
+        });
+
+        static::updated(function($post) {
+            event(new \TCG\Voyager\Events\NoSqlModelUpdated('posts',$post->id, $post->getAttributes()));
+        });
+
+        static::deleted(function($post) {
+            event(new \TCG\Voyager\Events\NoSqlModelDeleted('posts',$post->id));
+        });
+    }
 }

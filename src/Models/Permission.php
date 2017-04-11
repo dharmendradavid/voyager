@@ -26,4 +26,24 @@ class Permission extends Model
     {
         self::where(['table_name' => $table_name])->delete();
     }
+
+    /**
+     * Booting event handlers thrown by models
+     */
+    public static function boot() {
+
+        parent::boot();
+
+        static::created(function($permission) {
+            event(new \TCG\Voyager\Events\NoSqlModelCreated('permissions','id', $permission->getAttributes()));
+        });
+
+        static::updated(function($permission) {
+            event(new \TCG\Voyager\Events\NoSqlModelUpdated('permissions',$permission->id, $permission->getAttributes()));
+        });
+
+        static::deleted(function($permission) {
+            event(new \TCG\Voyager\Events\NoSqlModelDeleted('permissions',$permission->id));
+        });
+    }
 }

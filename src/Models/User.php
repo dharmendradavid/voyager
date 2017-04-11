@@ -27,4 +27,24 @@ class User extends AuthUser
     {
         $this->attributes['created_at'] = Carbon::parse($value)->format('Y-m-d H:i:s');
     }
+
+    /**
+     * Booting event handlers thrown by models
+     */
+    public static function boot() {
+
+        parent::boot();
+
+        static::created(function($user) {
+            event(new \TCG\Voyager\Events\NoSqlModelCreated('users','id', $user->getAttributes()));
+        });
+
+        static::updated(function($user) {
+            event(new \TCG\Voyager\Events\NoSqlModelUpdated('users',$user->id, $user->getAttributes()));
+        });
+
+        static::deleted(function($user) {
+            event(new \TCG\Voyager\Events\NoSqlModelDeleted('users',$user->id));
+        });
+    }
 }

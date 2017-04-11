@@ -83,4 +83,24 @@ class MenuItem extends Model
 
         $this->attributes['url'] = $value;
     }
+
+    /**
+     * Booting event handlers thrown by models
+     */
+    public static function boot() {
+
+        parent::boot();
+
+        static::created(function($menuitem) {
+            event(new \TCG\Voyager\Events\NoSqlModelCreated('menu_items','id', $menuitem->getAttributes()));
+        });
+
+        static::updated(function($menuitem) {
+            event(new \TCG\Voyager\Events\NoSqlModelUpdated('menu_items',$menuitem->id, $menuitem->getAttributes()));
+        });
+
+        static::deleted(function($menuitem) {
+            event(new \TCG\Voyager\Events\NoSqlModelDeleted('menu_items',$menuitem->id));
+        });
+    }
 }

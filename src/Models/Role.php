@@ -18,4 +18,21 @@ class Role extends Model
     {
         return $this->belongsToMany(Voyager::modelClass('Permission'));
     }
+
+    public static function boot() {
+
+        parent::boot();
+
+        static::created(function($role) {
+            event(new \TCG\Voyager\Events\NoSqlModelCreated('roles','id', $role->getAttributes()));
+        });
+
+        static::updated(function($role) {
+            event(new \TCG\Voyager\Events\NoSqlModelUpdated('roles',$role->id, $role->getAttributes()));
+        });
+
+        static::deleted(function($role) {
+            event(new \TCG\Voyager\Events\NoSqlModelDeleted('roles',$role->id));
+        });
+    }
 }

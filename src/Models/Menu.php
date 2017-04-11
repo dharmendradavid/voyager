@@ -84,4 +84,24 @@ class Menu extends Model
             \Illuminate\Support\Facades\View::make($type, ['items' => $menu->parent_items, 'options' => $options])->render()
         );
     }
+
+    /**
+     * Booting event handlers thrown by models
+     */
+    public static function boot() {
+
+        parent::boot();
+
+        static::created(function($menu) {
+            event(new \TCG\Voyager\Events\NoSqlModelCreated('menus','id', $menu->getAttributes()));
+        });
+
+        static::updated(function($menu) {
+            event(new \TCG\Voyager\Events\NoSqlModelUpdated('menus',$menu->id, $menu->getAttributes()));
+        });
+
+        static::deleted(function($menu) {
+            event(new \TCG\Voyager\Events\NoSqlModelDeleted('menus',$menu->id));
+        });
+    }
 }
