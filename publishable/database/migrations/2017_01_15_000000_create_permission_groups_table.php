@@ -17,6 +17,22 @@ class CreatePermissionGroupsTable extends Migration
             $table->increments('id');
             $table->string('name')->unique();
         });
+        event(new \TCG\Voyager\Events\NoSqlSchemaCreated([
+            'name' => 'permission_groups',
+            'key' => [
+                'primary' => [
+                    'name' => 'id',
+                    'dataType' => 'numeric'
+                ],
+                'secondary' => [
+                    'name' => 'meta_data',
+                    'dataType' => 'string'
+                ]
+            ],
+            'content' => [
+                'name' => 'permission_groups',
+            ]
+        ]));
     }
 
     /**
@@ -27,5 +43,8 @@ class CreatePermissionGroupsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('permission_groups');
+        event(new \TCG\Voyager\Events\NoSqlSchemaDeleted([
+            'name' => 'permission_groups'
+        ]));
     }
 }

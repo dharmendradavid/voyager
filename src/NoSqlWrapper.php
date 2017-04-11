@@ -39,7 +39,7 @@ class NoSqlWrapper
 
         $this->client->request('POST', config('voyager.real_time_co.auth_url') . '/authenticate', [
             'json' => [
-                'applicationKey'=> config('voyager.real_time_co.application_key'),
+                'applicationKey' => config('voyager.real_time_co.application_key'),
                 'privateKey' => config('voyager.real_time_co.private_key'),
                 'authenticationToken' => config('voyager.real_time_co.authentication_token'),
                 'policies' => [
@@ -63,7 +63,7 @@ class NoSqlWrapper
     {
         $this->client->request('POST', config('voyager.real_time_co.auth_url') . '/createTable', [
             'json' => [
-                'applicationKey'=> config('voyager.real_time_co.application_key'),
+                'applicationKey' => config('voyager.real_time_co.application_key'),
                 'privateKey' => config('voyager.real_time_co.private_key'),
                 'authenticationToken' => config('voyager.real_time_co.authentication_token'),
                 'table' => $schema['name'],
@@ -76,11 +76,13 @@ class NoSqlWrapper
                         "name" => $schema['key']['secondary']['name'],
                         "dataType" => $schema['key']['secondary']['dataType'],
                     ]
-                ]
+                ],
+                "provisionType" => 1,
+                "provisionLoad" => 2
             ]
         ]);
 
-        $this->storeItem($schema['name'], 'name', $schema['content']);
+        $this->storeItem('schema', 'name', $schema['content']);
 
         return $this;
     }
@@ -96,7 +98,7 @@ class NoSqlWrapper
         //deleting table from database
         $this->client->request('POST', config('voyager.real_time_co.auth_url') . '/createTable', [
             'json' => [
-                'applicationKey'=> config('voyager.real_time_co.application_key'),
+                'applicationKey' => config('voyager.real_time_co.application_key'),
                 'privateKey' => config('voyager.real_time_co.private_key'),
                 'authenticationToken' => config('voyager.real_time_co.authentication_token'),
                 'table' => $table,
@@ -127,7 +129,7 @@ class NoSqlWrapper
 
         $this->client->request('POST', config('voyager.real_time_co.auth_url') . '/putItem', [
             'json' => [
-                'applicationKey'=> config('voyager.real_time_co.application_key'),
+                'applicationKey' => config('voyager.real_time_co.application_key'),
                 'privateKey' => config('voyager.real_time_co.private_key'),
                 'authenticationToken' => config('voyager.real_time_co.authentication_token'),
                 'table' => $table,
@@ -149,7 +151,7 @@ class NoSqlWrapper
     {
         $this->client->request('POST', config('voyager.real_time_co.auth_url') . '/deleteItem', [
             'json' => [
-                'applicationKey'=> config('voyager.real_time_co.application_key'),
+                'applicationKey' => config('voyager.real_time_co.application_key'),
                 'privateKey' => config('voyager.real_time_co.private_key'),
                 'authenticationToken' => config('voyager.real_time_co.authentication_token'),
                 'table' => $table,
@@ -177,7 +179,7 @@ class NoSqlWrapper
 
         $this->client->request('POST', config('voyager.real_time_co.auth_url') . '/updateItem', [
             'json' => [
-                'applicationKey'=> config('voyager.real_time_co.application_key'),
+                'applicationKey' => config('voyager.real_time_co.application_key'),
                 'privateKey' => config('voyager.real_time_co.private_key'),
                 'authenticationToken' => config('voyager.real_time_co.authentication_token'),
                 'table' => $table,
@@ -205,7 +207,7 @@ class NoSqlWrapper
 
         $item = $this->client->request('POST', config('voyager.real_time_co.auth_url') . '/getItem', [
             'json' => [
-                'applicationKey'=> config('voyager.real_time_co.application_key'),
+                'applicationKey' => config('voyager.real_time_co.application_key'),
                 'privateKey' => config('voyager.real_time_co.private_key'),
                 'authenticationToken' => config('voyager.real_time_co.authentication_token'),
                 'table' => $table,
@@ -230,7 +232,7 @@ class NoSqlWrapper
     {
         $lists = $this->client->request('POST', config('voyager.real_time_co.auth_url') . '/getItem', [
             'json' => [
-                'applicationKey'=> config('voyager.real_time_co.application_key'),
+                'applicationKey' => config('voyager.real_time_co.application_key'),
                 'privateKey' => config('voyager.real_time_co.private_key'),
                 'authenticationToken' => config('voyager.real_time_co.authentication_token'),
                 'table' => $table,

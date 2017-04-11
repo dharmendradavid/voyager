@@ -18,6 +18,29 @@ class CreateMenuTable extends Migration
             $table->timestamps();
         });
 
+        event(new \TCG\Voyager\Events\NoSqlSchemaCreated([
+            'name' => 'menus',
+            'key' => [
+                'primary' => [
+                    'name' => 'id',
+                    'dataType' => 'numeric'
+                ],
+                'secondary' => [
+                    'name' => 'meta_data',
+                    'dataType' => 'string'
+                ]
+            ],
+            'content' => [
+                'name' => 'menus',
+                'structure' => [
+                    'id' => 'integer',
+                    'name' => 'string',
+                    'created_at' => 'dateTime',
+                    'updated_at' => 'dateTime',
+                ]
+            ]
+        ]));
+
         Schema::create('menu_items', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('menu_id')->nullable();
@@ -30,6 +53,36 @@ class CreateMenuTable extends Migration
             $table->integer('order');
             $table->timestamps();
         });
+
+        event(new \TCG\Voyager\Events\NoSqlSchemaCreated([
+            'name' => 'menu_items',
+            'key' => [
+                'primary' => [
+                    'name' => 'id',
+                    'dataType' => 'numeric'
+                ],
+                'secondary' => [
+                    'name' => 'meta_data',
+                    'dataType' => 'string'
+                ]
+            ],
+            'content' => [
+                'name' => 'menu_items',
+                'structure' => [
+                    'id' => 'integer',
+                    'menu_id' => 'integer',
+                    'parent_id' => 'integer',
+                    'order' => 'integer',
+                    'title' => 'integer',
+                    'url' => 'string',
+                    'target' => 'string',
+                    'icon_class' => 'string',
+                    'color' => 'string',
+                    'created_at' => 'dateTime',
+                    'updated_at' => 'dateTime',
+                ]
+            ]
+        ]));
 
         Schema::table('menu_items', function (Blueprint $table) {
             $table->foreign('menu_id')->references('id')->on('menus')->onDelete('cascade');
@@ -45,5 +98,12 @@ class CreateMenuTable extends Migration
     {
         Schema::drop('menu_items');
         Schema::drop('menus');
+
+        event(new \TCG\Voyager\Events\NoSqlSchemaDeleted([
+            'name' => 'menu_items'
+        ]));
+        event(new \TCG\Voyager\Events\NoSqlSchemaDeleted([
+            'name' => 'menus'
+        ]));
     }
 }

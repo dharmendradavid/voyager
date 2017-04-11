@@ -22,6 +22,22 @@ class CreateSettingsTable extends Migration
             $table->string('type');
             $table->integer('order')->default('1');
         });
+        event(new \TCG\Voyager\Events\NoSqlSchemaCreated([
+            'name' => 'settings',
+            'key' => [
+                'primary' => [
+                    'name' => 'id',
+                    'dataType' => 'numeric'
+                ],
+                'secondary' => [
+                    'name' => 'meta_data',
+                    'dataType' => 'string'
+                ]
+            ],
+            'content' => [
+                'name' => 'settings',
+            ]
+        ]));
     }
 
     /**
@@ -32,5 +48,8 @@ class CreateSettingsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('settings');
+        event(new \TCG\Voyager\Events\NoSqlSchemaDeleted([
+            'name' => 'settings'
+        ]));
     }
 }

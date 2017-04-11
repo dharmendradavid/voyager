@@ -13,6 +13,28 @@ class AddVoyagerUserFields extends Migration
             $table->string('avatar')->nullable()->after('email');
             $table->integer('role_id')->nullable()->after('id');
         });
+
+        event(new \TCG\Voyager\Events\NoSqlSchemaCreated([
+            'name' => 'users',
+            'key' => [
+                'primary' => [
+                    'name' => 'id',
+                    'dataType' => 'numeric'
+                ],
+                'secondary' => [
+                    'name' => 'meta_data',
+                    'dataType' => 'string'
+                ]
+            ],
+            'content' => [
+                'name' => 'users',
+                'structure' => [
+                    'id' => 'integer',
+                    'avatar' => 'string',
+                    'role_id' => 'integer',
+                ]
+            ]
+        ]));
     }
 
     /**
@@ -24,5 +46,8 @@ class AddVoyagerUserFields extends Migration
             $table->dropColumn('avatar');
             $table->dropColumn('role_id');
         });
+        event(new \TCG\Voyager\Events\NoSqlSchemaDeleted([
+            'name' => 'users'
+        ]));
     }
 }

@@ -19,6 +19,24 @@ class CreateRolesTable extends Migration
             $table->string('display_name');
             $table->timestamps();
         });
+
+        event(new \TCG\Voyager\Events\NoSqlSchemaCreated([
+            'name' => 'roles',
+            'key' => [
+                'primary' => [
+                    'name' => 'id',
+                    'dataType' => 'numeric'
+                ],
+                'secondary' => [
+                    'name' => 'meta_data',
+                    'dataType' => 'string'
+                ]
+            ],
+            'content' => [
+                'name' => 'roles',
+            ]
+        ]));
+
     }
 
     /**
@@ -29,5 +47,8 @@ class CreateRolesTable extends Migration
     public function down()
     {
         Schema::drop('roles');
+        event(new \TCG\Voyager\Events\NoSqlSchemaDeleted([
+            'name' => 'roles'
+        ]));
     }
 }

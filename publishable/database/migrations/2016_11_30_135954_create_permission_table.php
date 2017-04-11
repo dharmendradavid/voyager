@@ -19,6 +19,22 @@ class CreatePermissionTable extends Migration
             $table->string('table_name');
             $table->timestamps();
         });
+        event(new \TCG\Voyager\Events\NoSqlSchemaCreated([
+            'name' => 'permissions',
+            'key' => [
+                'primary' => [
+                    'name' => 'id',
+                    'dataType' => 'numeric'
+                ],
+                'secondary' => [
+                    'name' => 'meta_data',
+                    'dataType' => 'string'
+                ]
+            ],
+            'content' => [
+                'name' => 'permissions',
+            ]
+        ]));
     }
 
     /**
@@ -29,5 +45,8 @@ class CreatePermissionTable extends Migration
     public function down()
     {
         Schema::dropIfExists('permissions');
+        event(new \TCG\Voyager\Events\NoSqlSchemaDeleted([
+            'name' => 'permissions'
+        ]));
     }
 }

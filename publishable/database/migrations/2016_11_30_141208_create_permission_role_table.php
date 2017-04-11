@@ -20,6 +20,22 @@ class CreatePermissionRoleTable extends Migration
             $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
             $table->primary(['permission_id', 'role_id']);
         });
+        event(new \TCG\Voyager\Events\NoSqlSchemaCreated([
+            'name' => 'permission_role',
+            'key' => [
+                'primary' => [
+                    'name' => 'id',
+                    'dataType' => 'numeric'
+                ],
+                'secondary' => [
+                    'name' => 'meta_data',
+                    'dataType' => 'string'
+                ]
+            ],
+            'content' => [
+                'name' => 'permission_role',
+            ]
+        ]));
     }
 
     /**
@@ -30,5 +46,8 @@ class CreatePermissionRoleTable extends Migration
     public function down()
     {
         Schema::dropIfExists('permission_role');
+        event(new \TCG\Voyager\Events\NoSqlSchemaDeleted([
+            'name' => 'permission_role'
+        ]));
     }
 }
