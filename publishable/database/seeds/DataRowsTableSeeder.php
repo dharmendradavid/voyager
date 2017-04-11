@@ -29,7 +29,6 @@ class DataRowsTableSeeder extends Seeder
                 'edit'         => 0,
                 'add'          => 0,
                 'delete'       => 0,
-                'details'      => '',
             ])->save();
         }
 
@@ -44,7 +43,6 @@ class DataRowsTableSeeder extends Seeder
                 'edit'         => 1,
                 'add'          => 0,
                 'delete'       => 1,
-                'details'      => '',
             ])->save();
         }
 
@@ -59,7 +57,6 @@ class DataRowsTableSeeder extends Seeder
                     'edit'         => 1,
                     'add'          => 1,
                     'delete'       => 0,
-                    'details'      => '',
                 ])->save();
         }
 
@@ -74,7 +71,6 @@ class DataRowsTableSeeder extends Seeder
                 'edit'         => 1,
                 'add'          => 1,
                 'delete'       => 1,
-                'details'      => '',
             ])->save();
         }
 
@@ -89,7 +85,6 @@ class DataRowsTableSeeder extends Seeder
                 'edit'         => 1,
                 'add'          => 1,
                 'delete'       => 1,
-                'details'      => '',
             ])->save();
         }
 
@@ -104,7 +99,6 @@ class DataRowsTableSeeder extends Seeder
                 'edit'         => 1,
                 'add'          => 1,
                 'delete'       => 1,
-                'details'      => '',
             ])->save();
         }
 
@@ -180,7 +174,6 @@ class DataRowsTableSeeder extends Seeder
                 'edit'         => 1,
                 'add'          => 1,
                 'delete'       => 1,
-                'details'      => '',
             ])->save();
         }
 
@@ -195,7 +188,6 @@ class DataRowsTableSeeder extends Seeder
                 'edit'         => 1,
                 'add'          => 1,
                 'delete'       => 1,
-                'details'      => '',
             ])->save();
         }
 
@@ -233,7 +225,6 @@ class DataRowsTableSeeder extends Seeder
                 'edit'         => 0,
                 'add'          => 0,
                 'delete'       => 0,
-                'details'      => '',
             ])->save();
         }
 
@@ -248,7 +239,6 @@ class DataRowsTableSeeder extends Seeder
                 'edit'         => 0,
                 'add'          => 0,
                 'delete'       => 0,
-                'details'      => '',
             ])->save();
         }
 
@@ -263,7 +253,6 @@ class DataRowsTableSeeder extends Seeder
                 'edit'         => 0,
                 'add'          => 0,
                 'delete'       => 0,
-                'details'      => '',
             ])->save();
         }
 
@@ -278,7 +267,6 @@ class DataRowsTableSeeder extends Seeder
                 'edit'         => 0,
                 'add'          => 0,
                 'delete'       => 0,
-                'details'      => '',
             ])->save();
         }
 
@@ -293,7 +281,6 @@ class DataRowsTableSeeder extends Seeder
                 'edit'         => 1,
                 'add'          => 1,
                 'delete'       => 1,
-                'details'      => '',
             ])->save();
         }
 
@@ -308,7 +295,6 @@ class DataRowsTableSeeder extends Seeder
                 'edit'         => 1,
                 'add'          => 1,
                 'delete'       => 1,
-                'details'      => '',
             ])->save();
         }
 
@@ -323,7 +309,6 @@ class DataRowsTableSeeder extends Seeder
                 'edit'         => 1,
                 'add'          => 1,
                 'delete'       => 1,
-                'details'      => '',
             ])->save();
         }
 
@@ -357,7 +342,6 @@ class DataRowsTableSeeder extends Seeder
                 'edit'         => 1,
                 'add'          => 1,
                 'delete'       => 1,
-                'details'      => '',
             ])->save();
         }
 
@@ -372,7 +356,6 @@ class DataRowsTableSeeder extends Seeder
                 'edit'         => 1,
                 'add'          => 1,
                 'delete'       => 1,
-                'details'      => '',
             ])->save();
         }
 
@@ -408,7 +391,6 @@ class DataRowsTableSeeder extends Seeder
                 'edit'         => 0,
                 'add'          => 0,
                 'delete'       => 0,
-                'details'      => '',
             ])->save();
         }
 
@@ -423,7 +405,6 @@ class DataRowsTableSeeder extends Seeder
                 'edit'         => 0,
                 'add'          => 0,
                 'delete'       => 0,
-                'details'      => '',
             ])->save();
         }
 
@@ -438,7 +419,6 @@ class DataRowsTableSeeder extends Seeder
                 'edit'         => 1,
                 'add'          => 1,
                 'delete'       => 1,
-                'details'      => '',
             ])->save();
         }
 
@@ -453,7 +433,6 @@ class DataRowsTableSeeder extends Seeder
                 'edit'         => 0,
                 'add'          => 0,
                 'delete'       => 0,
-                'details'      => '',
             ])->save();
         }
 
@@ -468,7 +447,6 @@ class DataRowsTableSeeder extends Seeder
                 'edit'         => 1,
                 'add'          => 1,
                 'delete'       => 1,
-                'details'      => '',
             ])->save();
         }
 
@@ -483,7 +461,6 @@ class DataRowsTableSeeder extends Seeder
                 'edit'         => 1,
                 'add'          => 1,
                 'delete'       => 1,
-                'details'      => '',
             ])->save();
         }
 
@@ -498,7 +475,6 @@ class DataRowsTableSeeder extends Seeder
                 'edit'         => 1,
                 'add'          => 1,
                 'delete'       => 0,
-                'details'      => '',
             ])->save();
         }
 
@@ -513,7 +489,6 @@ class DataRowsTableSeeder extends Seeder
                 'edit'         => 0,
                 'add'          => 0,
                 'delete'       => 0,
-                'details'      => '',
             ])->save();
         }
 
@@ -528,7 +503,6 @@ class DataRowsTableSeeder extends Seeder
                 'edit'         => 0,
                 'add'          => 0,
                 'delete'       => 0,
-                'details'      => '',
             ])->save();
         }
 
@@ -543,7 +517,6 @@ class DataRowsTableSeeder extends Seeder
                 'edit'         => 0,
                 'add'          => 0,
                 'delete'       => 0,
-                'details'      => '',
             ])->save();
         }
 
@@ -558,7 +531,6 @@ class DataRowsTableSeeder extends Seeder
                 'edit'         => 1,
                 'add'          => 1,
                 'delete'       => 1,
-                'details'      => '',
             ])->save();
         }
 
@@ -573,7 +545,6 @@ class DataRowsTableSeeder extends Seeder
                 'edit'         => 0,
                 'add'          => 0,
                 'delete'       => 0,
-                'details'      => '',
             ])->save();
         }
 
@@ -588,7 +559,6 @@ class DataRowsTableSeeder extends Seeder
                 'edit'         => 1,
                 'add'          => 1,
                 'delete'       => 1,
-                'details'      => '',
             ])->save();
         }
 
@@ -603,7 +573,6 @@ class DataRowsTableSeeder extends Seeder
                 'edit'         => 0,
                 'add'          => 0,
                 'delete'       => 0,
-                'details'      => '',
             ])->save();
         }
 
@@ -618,7 +587,6 @@ class DataRowsTableSeeder extends Seeder
                 'edit'         => 0,
                 'add'          => 0,
                 'delete'       => 0,
-                'details'      => '',
             ])->save();
         }
 
@@ -633,7 +601,6 @@ class DataRowsTableSeeder extends Seeder
                 'edit'         => 0,
                 'add'          => 0,
                 'delete'       => 0,
-                'details'      => '',
             ])->save();
         }
 
@@ -690,7 +657,6 @@ class DataRowsTableSeeder extends Seeder
                 'edit'         => 1,
                 'add'          => 1,
                 'delete'       => 1,
-                'details'      => '',
             ])->save();
         }
 
@@ -705,7 +671,6 @@ class DataRowsTableSeeder extends Seeder
                 'edit'         => 1,
                 'add'          => 1,
                 'delete'       => 1,
-                'details'      => '',
             ])->save();
         }
 
@@ -720,7 +685,6 @@ class DataRowsTableSeeder extends Seeder
                 'edit'         => 0,
                 'add'          => 0,
                 'delete'       => 0,
-                'details'      => '',
             ])->save();
         }
 
@@ -735,7 +699,6 @@ class DataRowsTableSeeder extends Seeder
                 'edit'         => 0,
                 'add'          => 0,
                 'delete'       => 0,
-                'details'      => '',
             ])->save();
         }
 
@@ -750,7 +713,6 @@ class DataRowsTableSeeder extends Seeder
                 'edit'         => 0,
                 'add'          => 0,
                 'delete'       => 0,
-                'details'      => '',
             ])->save();
         }
 
@@ -765,7 +727,6 @@ class DataRowsTableSeeder extends Seeder
                 'edit'         => 1,
                 'add'          => 1,
                 'delete'       => 1,
-                'details'      => '',
             ])->save();
         }
 
@@ -780,7 +741,6 @@ class DataRowsTableSeeder extends Seeder
                 'edit'         => 0,
                 'add'          => 0,
                 'delete'       => 0,
-                'details'      => '',
             ])->save();
         }
 
@@ -795,7 +755,6 @@ class DataRowsTableSeeder extends Seeder
                 'edit'         => 0,
                 'add'          => 0,
                 'delete'       => 0,
-                'details'      => '',
             ])->save();
         }
 
@@ -810,7 +769,6 @@ class DataRowsTableSeeder extends Seeder
                 'edit'         => 1,
                 'add'          => 1,
                 'delete'       => 1,
-                'details'      => '',
             ])->save();
         }
 
@@ -825,7 +783,6 @@ class DataRowsTableSeeder extends Seeder
                 'edit'         => 1,
                 'add'          => 1,
                 'delete'       => 1,
-                'details'      => '',
             ])->save();
         }
 
@@ -840,7 +797,6 @@ class DataRowsTableSeeder extends Seeder
                 'edit'         => 1,
                 'add'          => 1,
                 'delete'       => 1,
-                'details'      => '',
             ])->save();
         }
 
@@ -855,7 +811,6 @@ class DataRowsTableSeeder extends Seeder
                 'edit'         => 1,
                 'add'          => 1,
                 'delete'       => 1,
-                'details'      => '',
             ])->save();
         }
     }

@@ -126,7 +126,6 @@ class MenuItemsTableSeeder extends Seeder
             $toolsMenuItem = MenuItem::firstOrNew([
                 'menu_id'    => $menu->id,
                 'title'      => 'Tools',
-                'url'        => '',
             ]);
             if (!$toolsMenuItem->exists) {
                 $toolsMenuItem->fill([
