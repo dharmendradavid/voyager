@@ -16,12 +16,12 @@ class CreateTranslationsTable extends Migration
         Schema::create('translations', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->string('table_name');
-            $table->string('column_name');
-            $table->integer('foreign_key')->unsigned();
-            $table->string('locale');
+            $table->string('table_name')->nullable()->default(NULL);
+            $table->string('column_name')->nullable()->default(NULL);
+            $table->integer('foreign_key')->unsigned()->nullable()->default(NULL);
+            $table->string('locale')->nullable()->default(NULL);
 
-            $table->text('value');
+            $table->text('value')->nullable()->default(NULL);
 
             $table->unique(['table_name', 'column_name', 'foreign_key', 'locale']);
 

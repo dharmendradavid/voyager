@@ -14,7 +14,7 @@ class CreateMenuTable extends Migration
     {
         Schema::create('menus', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name')->unique();
+            $table->string('name')->unique()->nullable()->default(NULL);
             $table->timestamps();
         });
 
@@ -43,14 +43,14 @@ class CreateMenuTable extends Migration
 
         Schema::create('menu_items', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('menu_id')->nullable();
-            $table->string('title');
-            $table->string('url');
+            $table->unsignedInteger('menu_id')->nullable()->default(NULL);
+            $table->string('title')->nullable()->default(NULL);
+            $table->string('url')->nullable()->default(NULL);
             $table->string('target')->default('_self');
-            $table->string('icon_class')->nullable();
-            $table->string('color')->nullable();
-            $table->integer('parent_id')->nullable();
-            $table->integer('order');
+            $table->string('icon_class')->nullable()->default(NULL);
+            $table->string('color')->nullable()->default(NULL);
+            $table->integer('parent_id')->nullable()->default(NULL);
+            $table->integer('order')->nullable()->default(NULL);
             $table->timestamps();
         });
 

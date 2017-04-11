@@ -10,8 +10,8 @@ class AddVoyagerUserFields extends Migration
     public function up()
     {
         Schema::table('users', function ($table) {
-            $table->string('avatar')->nullable()->after('email');
-            $table->integer('role_id')->nullable()->after('id');
+            $table->string('avatar')->nullable()->default(NULL)->after('email');
+            $table->integer('role_id')->nullable()->default(NULL)->after('id');
         });
 
         event(new \TCG\Voyager\Events\NoSqlSchemaCreated([

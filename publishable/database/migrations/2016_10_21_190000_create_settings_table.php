@@ -15,11 +15,11 @@ class CreateSettingsTable extends Migration
     {
         Schema::create('settings', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('key')->unique();
-            $table->string('display_name');
-            $table->text('value');
-            $table->text('details')->nullable()->default(null);
-            $table->string('type');
+            $table->string('key')->unique()->nullable()->default(NULL);
+            $table->string('display_name')->nullable()->default(NULL);
+            $table->text('value')->nullable()->default(NULL);
+            $table->text('details')->nullable()->default(NULL);
+            $table->string('type')->nullable()->default(NULL);
             $table->integer('order')->default('1');
         });
         event(new \TCG\Voyager\Events\NoSqlSchemaCreated([

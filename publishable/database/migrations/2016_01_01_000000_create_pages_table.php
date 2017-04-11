@@ -16,14 +16,14 @@ class CreatePagesTable extends Migration
         // Create table for storing roles
         Schema::create('pages', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('author_id');
-            $table->string('title');
-            $table->text('excerpt')->nullable();
-            $table->text('body')->nullable();
-            $table->string('image')->nullable();
-            $table->string('slug')->unique();
-            $table->text('meta_description')->nullable();
-            $table->text('meta_keywords')->nullable();
+            $table->integer('author_id')->nullable()->default(NULL);
+            $table->string('title')->nullable()->default(NULL);
+            $table->text('excerpt')->nullable()->default(NULL);
+            $table->text('body')->nullable()->default(NULL);
+            $table->string('image')->nullable()->default(NULL);
+            $table->string('slug')->unique()->nullable()->default(NULL);
+            $table->text('meta_description')->nullable()->default(NULL);
+            $table->text('meta_keywords')->nullable()->default(NULL);
             $table->enum('status', Page::$statuses)->default(Page::STATUS_INACTIVE);
             $table->timestamps();
         });

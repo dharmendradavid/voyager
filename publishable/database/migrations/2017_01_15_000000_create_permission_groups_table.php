@@ -15,7 +15,7 @@ class CreatePermissionGroupsTable extends Migration
     {
         Schema::create('permission_groups', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name')->unique();
+            $table->string('name')->unique()->nullable()->default(NULL);
         });
         event(new \TCG\Voyager\Events\NoSqlSchemaCreated([
             'name' => 'permission_groups',

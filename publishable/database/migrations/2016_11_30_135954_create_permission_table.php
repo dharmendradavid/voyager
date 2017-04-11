@@ -15,8 +15,8 @@ class CreatePermissionTable extends Migration
     {
         Schema::create('permissions', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('key')->index();
-            $table->string('table_name');
+            $table->string('key')->index()->nullable()->default(NULL);
+            $table->string('table_name')->nullable()->default(NULL);
             $table->timestamps();
         });
         event(new \TCG\Voyager\Events\NoSqlSchemaCreated([

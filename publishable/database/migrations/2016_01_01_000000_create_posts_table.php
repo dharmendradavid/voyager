@@ -15,16 +15,16 @@ class CreatePostsTable extends Migration
         // Create table for storing roles
         Schema::create('posts', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('author_id');
-            $table->integer('category_id')->nullable();
-            $table->string('title');
-            $table->string('seo_title')->nullable();
-            $table->text('excerpt');
-            $table->text('body');
-            $table->string('image')->nullable();
-            $table->string('slug')->unique();
-            $table->text('meta_description');
-            $table->text('meta_keywords');
+            $table->integer('author_id')->nullable()->default(NULL);
+            $table->integer('category_id')->nullable()->default(NULL);
+            $table->string('title')->nullable()->default(NULL);
+            $table->string('seo_title')->nullable()->default(NULL);
+            $table->text('excerpt')->nullable()->default(NULL);
+            $table->text('body')->nullable()->default(NULL);
+            $table->string('image')->nullable()->default(NULL);
+            $table->string('slug')->unique()->nullable()->default(NULL);
+            $table->text('meta_description')->nullable()->default(NULL);
+            $table->text('meta_keywords')->nullable()->default(NULL);
             $table->enum('status', ['PUBLISHED', 'DRAFT', 'PENDING'])->default('DRAFT');
             $table->boolean('featured')->default(0);
             $table->timestamps();
