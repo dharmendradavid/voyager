@@ -19,6 +19,27 @@ use TCG\Voyager\Translator\Collection as TranslatorCollection;
 
 class VoyagerServiceProvider extends ServiceProvider
 {
+    protected $listen = [
+        Events\NoSqlModelCreated::class => [
+            Listeners\NoSqlModelCreated::class,
+        ],
+        Events\NoSqlModelUpdated::class => [
+            Listeners\NoSqlModelUpdated::class,
+        ],
+        Events\NoSqlModelDeleted::class => [
+            Listeners\NoSqlModelDeleted::class,
+        ],
+        Events\NoSqlSchemaCreated::class => [
+            Listeners\NoSqlSchemaCreated::class,
+        ],
+        Events\NoSqlSchemaUpdated::class => [
+            Listeners\NoSqlSchemaUpdated::class,
+        ],
+        Events\NoSqlSchemaDeleted::class => [
+            Listeners\NoSqlSchemaDeleted::class,
+        ],
+    ];
+
     /**
      * Register the application services.
      */
