@@ -80,7 +80,7 @@ class NoSqlWrapper
             ]
         ]);
 
-        $this->storeItem($schema['name'], $schema['name'], $schema['content']);
+        $this->storeItem($schema['name'], 'name', $schema['content']);
 
         return $this;
     }
