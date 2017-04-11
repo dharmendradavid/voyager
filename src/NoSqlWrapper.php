@@ -96,7 +96,7 @@ class NoSqlWrapper
     public function deleteTable($table)
     {
         //deleting table from database
-        $this->client->request('POST', config('voyager.real_time_co.auth_url') . '/createTable', [
+        $this->client->request('POST', config('voyager.real_time_co.auth_url') . '/deleteTable', [
             'json' => [
                 'applicationKey' => config('voyager.real_time_co.application_key'),
                 'privateKey' => config('voyager.real_time_co.private_key'),
@@ -106,7 +106,7 @@ class NoSqlWrapper
         ]);
 
         //deleting entry of table from schema
-        $this->deleteItem($table, [
+        $this->deleteItem('schema', [
             'primary' => $table,
             'secondary' => md5($table)
         ]);
