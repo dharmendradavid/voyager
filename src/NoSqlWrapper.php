@@ -121,6 +121,7 @@ class NoSqlWrapper
      */
     public function storeItem($table, $key, $content)
     {
+        $content = $this->checkContent($content);
 
         $content['meta_data'] = md5($content[$key]);
 
@@ -173,6 +174,8 @@ class NoSqlWrapper
     public function updateItem($table, $key, $content)
     {
         unset($content['id']);
+
+        $content = $this->checkContent($content);
 
         $this->client->request('POST', config('voyager.real_time_co.auth_url') . '/updateItem', [
             'json' => [
@@ -237,6 +240,19 @@ class NoSqlWrapper
         ]);
 
         return $lists;
+    }
+
+    /**
+     * Function checks empty key values as "" and sets them as null
+     *
+     * @param array $content
+     * @return array
+     */
+    private function checkContent(array $content)
+    {
+        return collect($content)->transform(function($item) {
+            return $item == "" ? null : $item;
+        })->toArray();
     }
 
 }

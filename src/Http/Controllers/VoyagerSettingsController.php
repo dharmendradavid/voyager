@@ -32,7 +32,7 @@ class VoyagerSettingsController extends Controller
         }
 
         $request->merge(['order' => $order]);
-        $request->merge(['value' => '']);
+        $request->merge(['value' => NULL]);
 
         Voyager::model('Setting')->create($request->all());
 

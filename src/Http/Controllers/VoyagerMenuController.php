@@ -4,6 +4,7 @@ namespace TCG\Voyager\Http\Controllers;
 
 use Illuminate\Http\Request;
 use TCG\Voyager\Facades\Voyager;
+use TCG\Voyager\Models\MenuItem;
 
 class VoyagerMenuController extends Controller
 {
@@ -95,7 +96,8 @@ class VoyagerMenuController extends Controller
             $menuItem->setAttributeTranslations('title', $trans, true);
         }
 
-        $menuItem->update($data);
+        $menuItem->fill($data);
+        $menuItem->save();
 
         return redirect()
             ->route('voyager.menus.builder', [$menuItem->menu_id])
@@ -134,7 +136,7 @@ class VoyagerMenuController extends Controller
                 break;
             default:
                 $parameters['route'] = null;
-                $parameters['parameters'] = '';
+                $parameters['parameters'] = null;
                 break;
         }
 
