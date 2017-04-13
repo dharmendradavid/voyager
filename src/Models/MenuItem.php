@@ -87,20 +87,22 @@ class MenuItem extends Model
     /**
      * Booting event handlers thrown by models
      */
-    public static function boot() {
-
+    public static function boot()
+    {
         parent::boot();
 
-        static::created(function($menuitem) {
-            event(new \TCG\Voyager\Events\NoSqlModelCreated('menu_items','id', $menuitem->getAttributes()));
+        static::created(function($menuItem) {
+
+            $menuItem->table_name = 'table_menu_items';
+            event(new \TCG\Voyager\Events\NoSqlModelCreated('ItemsTable', $menuItem->getAttributes()));
         });
 
-        static::updated(function($menuitem) {
-            event(new \TCG\Voyager\Events\NoSqlModelUpdated('menu_items',$menuitem->id, $menuitem->getAttributes()));
+        static::updated(function($menuItem) {
+            event(new \TCG\Voyager\Events\NoSqlModelUpdated('ItemsTable','table_menu_items', $menuItem->id, $menuItem->getAttributes()));
         });
 
-        static::deleted(function($menuitem) {
-            event(new \TCG\Voyager\Events\NoSqlModelDeleted('menu_items',$menuitem->id));
+        static::deleted(function($menuItem) {
+            event(new \TCG\Voyager\Events\NoSqlModelDeleted('ItemsTable','table_menu_items', $menuItem->id));
         });
     }
 }

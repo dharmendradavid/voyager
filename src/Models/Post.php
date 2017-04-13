@@ -76,15 +76,17 @@ class Post extends Model
         parent::boot();
 
         static::created(function($post) {
-            event(new \TCG\Voyager\Events\NoSqlModelCreated('posts','id', $post->getAttributes()));
+
+            $post->table_name = 'table_posts';
+            event(new \TCG\Voyager\Events\NoSqlModelCreated('ItemsTable', $post->getAttributes()));
         });
 
         static::updated(function($post) {
-            event(new \TCG\Voyager\Events\NoSqlModelUpdated('posts',$post->id, $post->getAttributes()));
+            event(new \TCG\Voyager\Events\NoSqlModelUpdated('ItemsTable','table_posts', $post->id, $post->getAttributes()));
         });
 
         static::deleted(function($post) {
-            event(new \TCG\Voyager\Events\NoSqlModelDeleted('posts',$post->id));
+            event(new \TCG\Voyager\Events\NoSqlModelDeleted('ItemsTable','table_posts', $post->id));
         });
     }
 }

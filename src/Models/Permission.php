@@ -35,15 +35,17 @@ class Permission extends Model
         parent::boot();
 
         static::created(function($permission) {
-            event(new \TCG\Voyager\Events\NoSqlModelCreated('permissions','id', $permission->getAttributes()));
+
+            $permission->table_name = 'table_permissions';
+            event(new \TCG\Voyager\Events\NoSqlModelCreated('ItemsTable', $permission->getAttributes()));
         });
 
         static::updated(function($permission) {
-            event(new \TCG\Voyager\Events\NoSqlModelUpdated('permissions',$permission->id, $permission->getAttributes()));
+            event(new \TCG\Voyager\Events\NoSqlModelUpdated('ItemsTable','table_permissions', $permission->id, $permission->getAttributes()));
         });
 
         static::deleted(function($permission) {
-            event(new \TCG\Voyager\Events\NoSqlModelDeleted('permissions',$permission->id));
+            event(new \TCG\Voyager\Events\NoSqlModelDeleted('ItemsTable','table_permissions', $permission->id));
         });
     }
 }

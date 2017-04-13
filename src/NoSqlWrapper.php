@@ -82,8 +82,6 @@ class NoSqlWrapper
             ]
         ]);
 
-        $this->storeItem('schema', 'name', $schema['content']);
-
         return $this;
     }
 
@@ -105,9 +103,6 @@ class NoSqlWrapper
             ]
         ]);
 
-        //deleting entry of table from schema
-        $this->deleteItem('schema', $table);
-
         return $this;
     }
 
@@ -115,15 +110,13 @@ class NoSqlWrapper
      * Function stores content inside a table in no sql database
      *
      * @param string $table Table to store content into
-     * @param string $key Index which will be the primary key
      * @param mixed $content Main content to be put
      * @return $this
      */
-    public function storeItem($table, $key, $content)
+    public function storeItem($table, $content)
     {
-        $content = $this->checkContent($content);
 
-        $content['meta_data'] = md5($content[$key]);
+        $content = $this->checkContent($content);
 
         $this->client->request('POST', config('voyager.real_time_co.auth_url') . '/putItem', [
             'json' => [
@@ -142,10 +135,11 @@ class NoSqlWrapper
      * Function delete's item from table at given key
      *
      * @param string $table
-     * @param mixed $key
+     * @param mixed $primaryKey
+     * @param mixed $secondaryKey
      * @return $this
      */
-    public function deleteItem($table, $key)
+    public function deleteItem($table, $primaryKey, $secondaryKey)
     {
         $this->client->request('POST', config('voyager.real_time_co.auth_url') . '/deleteItem', [
             'json' => [
@@ -154,8 +148,8 @@ class NoSqlWrapper
                 'authenticationToken' => config('voyager.real_time_co.authentication_token'),
                 'table' => $table,
                 "key" => [
-                    'primary' => $key,
-                    'secondary' => md5($key)
+                    'primary' => $primaryKey,
+                    'secondary' => $secondaryKey
                 ]
             ]
         ]);
@@ -167,11 +161,12 @@ class NoSqlWrapper
      * Function updates the table at given primary key with new content provided
      *
      * @param string $table Table being updated
-     * @param string $key The primary search key for no sql database
+     * @param string $primaryKey The primary search key for no sql database
+     * @param string $secondaryKey The secondary search key for no sql database
      * @param mixed $content Content to be updated with
      * @return $this
      */
-    public function updateItem($table, $key, $content)
+    public function updateItem($table, $primaryKey, $secondaryKey, $content)
     {
         unset($content['id']);
 
@@ -184,8 +179,8 @@ class NoSqlWrapper
                 'authenticationToken' => config('voyager.real_time_co.authentication_token'),
                 'table' => $table,
                 "key" => [
-                    'primary' => $key,
-                    'secondary' => md5($key)
+                    'primary' => $primaryKey,
+                    'secondary' => $secondaryKey
                 ],
                 'item' => $content
             ]
@@ -250,6 +245,7 @@ class NoSqlWrapper
      */
     private function checkContent(array $content)
     {
+
         return collect($content)->transform(function($item) {
             return $item == "" ? null : $item;
         })->toArray();

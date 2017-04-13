@@ -57,15 +57,17 @@ class Page extends Model
         parent::boot();
 
         static::created(function($page) {
-            event(new \TCG\Voyager\Events\NoSqlModelCreated('pages','id', $page->getAttributes()));
+
+            $page->table_name = 'table_pages';
+            event(new \TCG\Voyager\Events\NoSqlModelCreated('ItemsTable', $page->getAttributes()));
         });
 
         static::updated(function($page) {
-            event(new \TCG\Voyager\Events\NoSqlModelUpdated('pages',$page->id, $page->getAttributes()));
+            event(new \TCG\Voyager\Events\NoSqlModelUpdated('ItemsTable','table_pages', $page->id, $page->getAttributes()));
         });
 
         static::deleted(function($page) {
-            event(new \TCG\Voyager\Events\NoSqlModelDeleted('pages',$page->id));
+            event(new \TCG\Voyager\Events\NoSqlModelDeleted('ItemsTable','table_pages', $page->id));
         });
     }
 }

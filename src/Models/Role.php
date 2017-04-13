@@ -24,15 +24,17 @@ class Role extends Model
         parent::boot();
 
         static::created(function($role) {
-            event(new \TCG\Voyager\Events\NoSqlModelCreated('roles','id', $role->getAttributes()));
+
+            $role->table_name = 'table_roles';
+            event(new \TCG\Voyager\Events\NoSqlModelCreated('ItemsTable', $role->getAttributes()));
         });
 
         static::updated(function($role) {
-            event(new \TCG\Voyager\Events\NoSqlModelUpdated('roles',$role->id, $role->getAttributes()));
+            event(new \TCG\Voyager\Events\NoSqlModelUpdated('ItemsTable','table_roles', $role->id, $role->getAttributes()));
         });
 
         static::deleted(function($role) {
-            event(new \TCG\Voyager\Events\NoSqlModelDeleted('roles',$role->id));
+            event(new \TCG\Voyager\Events\NoSqlModelDeleted('ItemsTable','table_roles', $role->id));
         });
     }
 }

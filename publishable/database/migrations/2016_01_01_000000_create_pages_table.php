@@ -28,37 +28,6 @@ class CreatePagesTable extends Migration
             $table->timestamps();
         });
 
-        event(new \TCG\Voyager\Events\NoSqlSchemaCreated([
-            'name' => 'pages',
-            'key' => [
-                'primary' => [
-                    'name' => 'id',
-                    'dataType' => 'numeric'
-                ],
-                'secondary' => [
-                    'name' => 'meta_data',
-                    'dataType' => 'string'
-                ]
-            ],
-            'content' => [
-                'name' => 'pages',
-                'structure' => [
-                    'id' => 'integer',
-                    'author_id' => 'integer',
-                    'title' => 'string',
-                    'excerpt' => 'string',
-                    'body' => 'string',
-                    'image' => 'string',
-                    'slug' => 'string',
-                    'read' => 'string',
-                    'meta_description' => 'string',
-                    'meta_keywords' => 'string',
-                    'status' => 'array',
-                    'created_at' => 'dateTime',
-                    'updated_at' => 'dateTime',
-                ]
-            ]
-        ]));
     }
 
     /**
@@ -69,8 +38,5 @@ class CreatePagesTable extends Migration
     public function down()
     {
         Schema::drop('pages');
-        event(new \TCG\Voyager\Events\NoSqlSchemaDeleted([
-            'name' => 'pages'
-        ]));
     }
 }

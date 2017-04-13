@@ -36,15 +36,18 @@ class Category extends Model
         parent::boot();
 
         static::created(function($category) {
-            event(new \TCG\Voyager\Events\NoSqlModelCreated('categories','id', $category->getAttributes()));
+
+            $category->table_name = 'table_categories';
+            event(new \TCG\Voyager\Events\NoSqlModelCreated('ItemsTable', $category->getAttributes()));
         });
 
         static::updated(function($category) {
-            event(new \TCG\Voyager\Events\NoSqlModelUpdated('categories',$category->id, $category->getAttributes()));
+            event(new \TCG\Voyager\Events\NoSqlModelUpdated('ItemsTable','table_categories', $category->id, $category->getAttributes()));
         });
 
         static::deleted(function($category) {
-            event(new \TCG\Voyager\Events\NoSqlModelDeleted('categories',$category->id));
+
+            event(new \TCG\Voyager\Events\NoSqlModelDeleted('ItemsTable','table_categories', $category->id));
         });
     }
 }

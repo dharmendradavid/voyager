@@ -33,6 +33,6 @@ class NoSqlModelCreated
             [
                 'name' => $event->table
             ]
-        ])->storeItem($event->table, $event->key, $event->content);
+        ])->storeItem($event->table, $event->content);
     }
 }

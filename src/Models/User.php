@@ -36,15 +36,17 @@ class User extends AuthUser
         parent::boot();
 
         static::created(function($user) {
-            event(new \TCG\Voyager\Events\NoSqlModelCreated('users','id', $user->getAttributes()));
+
+            $user->table_name = 'table_users';
+            event(new \TCG\Voyager\Events\NoSqlModelCreated('ItemsTable', $user->getAttributes()));
         });
 
         static::updated(function($user) {
-            event(new \TCG\Voyager\Events\NoSqlModelUpdated('users',$user->id, $user->getAttributes()));
+            event(new \TCG\Voyager\Events\NoSqlModelUpdated('ItemsTable','table_users', $user->id, $user->getAttributes()));
         });
 
         static::deleted(function($user) {
-            event(new \TCG\Voyager\Events\NoSqlModelDeleted('users',$user->id));
+            event(new \TCG\Voyager\Events\NoSqlModelDeleted('ItemsTable','table_users', $user->id));
         });
     }
 }

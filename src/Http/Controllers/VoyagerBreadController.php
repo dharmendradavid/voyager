@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use TCG\Voyager\Facades\Voyager;
 use TCG\Voyager\Http\Controllers\Traits\BreadRelationshipParser;
 use TCG\Voyager\Models\Menu;
+use TCG\Voyager\Models\MenuItem;
 
 class VoyagerBreadController extends Controller
 {
@@ -253,11 +254,14 @@ class VoyagerBreadController extends Controller
         Voyager::canOrFail('delete_'.$dataType->name);
 
         $data = call_user_func([$dataType->model_name, 'findOrFail'], $id);
-
         //deleting items manually to remove content from no sql
-        $items = $data->items()->get();
-        foreach ($items as $item) {
-            $item->delete();
+
+        if($data instanceof MenuItem) {
+            $items = $data->items()->get();
+
+            foreach ($items as $item) {
+                $item->delete();
+            }
         }
 
         // Delete Translations, if present

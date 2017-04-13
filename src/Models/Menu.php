@@ -93,15 +93,17 @@ class Menu extends Model
         parent::boot();
 
         static::created(function($menu) {
-            event(new \TCG\Voyager\Events\NoSqlModelCreated('menus','id', $menu->getAttributes()));
+
+            $menu->table_name = 'table_menus';
+            event(new \TCG\Voyager\Events\NoSqlModelCreated('ItemsTable', $menu->getAttributes()));
         });
 
         static::updated(function($menu) {
-            event(new \TCG\Voyager\Events\NoSqlModelUpdated('menus',$menu->id, $menu->getAttributes()));
+            event(new \TCG\Voyager\Events\NoSqlModelUpdated('ItemsTable','table_menus', $menu->id, $menu->getAttributes()));
         });
 
         static::deleted(function($menu) {
-            event(new \TCG\Voyager\Events\NoSqlModelDeleted('menus',$menu->id));
+            event(new \TCG\Voyager\Events\NoSqlModelDeleted('ItemsTable','table_menus', $menu->id));
         });
     }
 }

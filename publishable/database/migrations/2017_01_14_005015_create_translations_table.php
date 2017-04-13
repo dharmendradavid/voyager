@@ -27,22 +27,6 @@ class CreateTranslationsTable extends Migration
 
             $table->timestamps();
         });
-        event(new \TCG\Voyager\Events\NoSqlSchemaCreated([
-            'name' => 'translations',
-            'key' => [
-                'primary' => [
-                    'name' => 'id',
-                    'dataType' => 'numeric'
-                ],
-                'secondary' => [
-                    'name' => 'meta_data',
-                    'dataType' => 'string'
-                ]
-            ],
-            'content' => [
-                'name' => 'translations',
-            ]
-        ]));
     }
 
     /**
@@ -53,8 +37,5 @@ class CreateTranslationsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('translations');
-        event(new \TCG\Voyager\Events\NoSqlSchemaDeleted([
-            'name' => 'translations'
-        ]));
     }
 }

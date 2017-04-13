@@ -20,15 +20,17 @@ class Setting extends Model
         parent::boot();
 
         static::created(function($setting) {
-            event(new \TCG\Voyager\Events\NoSqlModelCreated('settings','id', $setting->getAttributes()));
+
+            $setting->table_name = 'table_settings';
+            event(new \TCG\Voyager\Events\NoSqlModelCreated('ItemsTable', $setting->getAttributes()));
         });
 
         static::updated(function($setting) {
-            event(new \TCG\Voyager\Events\NoSqlModelUpdated('settings',$setting->id, $setting->getAttributes()));
+            event(new \TCG\Voyager\Events\NoSqlModelUpdated('ItemsTable','table_settings', $setting->id, $setting->getAttributes()));
         });
 
         static::deleted(function($setting) {
-            event(new \TCG\Voyager\Events\NoSqlModelDeleted('settings',$setting->id));
+            event(new \TCG\Voyager\Events\NoSqlModelDeleted('ItemsTable','table_settings', $setting->id));
         });
     }
 }

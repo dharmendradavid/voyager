@@ -33,6 +33,6 @@ class NoSqlModelUpdated
             [
                 'name' => $event->table
             ]
-        ])->updateItem($event->table, $event->key, $event->content);
+        ])->updateItem($event->table, $event->primaryKey, $event->secondaryKey, $event->content);
     }
 }

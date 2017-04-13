@@ -171,16 +171,19 @@ class DataType extends Model
 
         parent::boot();
 
-        static::created(function($datatype) {
-            event(new \TCG\Voyager\Events\NoSqlModelCreated('data_types','id', $datatype->getAttributes()));
+        static::created(function($dataType) {
+
+            $dataType->table_name = 'table_data_types';
+
+            event(new \TCG\Voyager\Events\NoSqlModelCreated('ItemsTable', $dataType->getAttributes()));
         });
 
-        static::updated(function($datatype) {
-            event(new \TCG\Voyager\Events\NoSqlModelUpdated('data_types',$datatype->id, $datatype->getAttributes()));
+        static::updated(function($dataType) {
+            event(new \TCG\Voyager\Events\NoSqlModelUpdated('ItemsTable','table_data_types', $dataType->id, $dataType->getAttributes()));
         });
 
-        static::deleted(function($datatype) {
-            event(new \TCG\Voyager\Events\NoSqlModelDeleted('data_types',$datatype->id));
+        static::deleted(function($dataType) {
+            event(new \TCG\Voyager\Events\NoSqlModelDeleted('ItemsTable','table_data_types', $dataType->id));
         });
     }
 }

@@ -23,31 +23,6 @@ class CreateCategoriesTable extends Migration
             $table->timestamps();
         });
 
-        event(new \TCG\Voyager\Events\NoSqlSchemaCreated([
-            'name' => 'categories',
-            'key' => [
-                'primary' => [
-                    'name' => 'id',
-                    'dataType' => 'numeric'
-                ],
-                'secondary' => [
-                    'name' => 'meta_data',
-                    'dataType' => 'string'
-                ]
-            ],
-            'content' => [
-                'name' => 'categories',
-                'structure' => [
-                    'id' => 'integer',
-                    'parent_id' => 'integer',
-                    'order' => 'integer',
-                    'name' => 'string',
-                    'slug' => 'string',
-                    'created_at' => 'dateTime',
-                    'updated_at' => 'dateTime',
-                ]
-            ]
-        ]));
     }
 
     /**
@@ -58,8 +33,5 @@ class CreateCategoriesTable extends Migration
     public function down()
     {
         Schema::drop('categories');
-        event(new \TCG\Voyager\Events\NoSqlSchemaDeleted([
-            'name' => 'categories'
-        ]));
     }
 }

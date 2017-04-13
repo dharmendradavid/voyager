@@ -30,19 +30,28 @@ class NoSqlModelUpdated
      *
      * @var string
      */
-    public $key;
+    public $primaryKey;
+
+    /**
+     * Primary key for the content for table
+     *
+     * @var string
+     */
+    public $secondaryKey;
 
     /**
      * Create a new event instance.
      *
      * @param string $table Table where the content is to be saved
-     * @param string $key Primary key where content will be indexed with
+     * @param string $primaryKey Primary key where content will be indexed with
+     * @param string $secondaryKey Secondary key where content will be indexed with
      * @param mixed $content Content to be saved
      */
-    public function __construct($table, $key, $content)
+    public function __construct($table, $primaryKey, $secondaryKey, $content)
     {
         $this->table = $table;
-        $this->key = $key;
+        $this->primaryKey = $primaryKey;
+        $this->secondaryKey = $secondaryKey;
         $this->content = $content;
     }
 

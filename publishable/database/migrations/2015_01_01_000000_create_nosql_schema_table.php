@@ -10,24 +10,23 @@ class CreateNoSqlSchemaTable extends Migration
     public function up()
     {
         event(new \TCG\Voyager\Events\NoSqlSchemaCreated([
-            'name' => 'schema',
+            'name' => 'ItemsTable',
             'key' => [
                 'primary' => [
-                    'name' => 'name',
+                    'name' => 'table_name',
                     'dataType' => 'string'
                 ],
                 'secondary' => [
-                    'name' => 'meta_data',
-                    'dataType' => 'string'
+                    'name' => 'id',
+                    'dataType' => 'numeric'
                 ]
             ],
             'content' => [
-                'name' => 'schema',
-                'structure' => [
-                    'name' => 'schema',
-                ]
+                'name' => 'ItemsTable',
             ]
         ]));
+
+
     }
 
     /**
@@ -35,5 +34,9 @@ class CreateNoSqlSchemaTable extends Migration
      */
     public function down()
     {
+        /*event(new \TCG\Voyager\Events\NoSqlSchemaDeleted([
+            'name' => 'ItemsTable'
+        ]));
+        */
     }
 }

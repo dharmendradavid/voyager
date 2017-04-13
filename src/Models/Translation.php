@@ -18,15 +18,17 @@ class Translation extends Model
         parent::boot();
 
         static::created(function($translation) {
-            event(new \TCG\Voyager\Events\NoSqlModelCreated('translations','id', $translation->getAttributes()));
+
+            $translation->table_name = 'table_translations';
+            event(new \TCG\Voyager\Events\NoSqlModelCreated('ItemsTable', $translation->getAttributes()));
         });
 
         static::updated(function($translation) {
-            event(new \TCG\Voyager\Events\NoSqlModelUpdated('translations',$translation->id, $translation->getAttributes()));
+            event(new \TCG\Voyager\Events\NoSqlModelUpdated('ItemsTable','table_translations', $translation->id, $translation->getAttributes()));
         });
 
         static::deleted(function($translation) {
-            event(new \TCG\Voyager\Events\NoSqlModelDeleted('translations',$translation->id));
+            event(new \TCG\Voyager\Events\NoSqlModelDeleted('ItemsTable','table_translations', $translation->id));
         });
     }
 }

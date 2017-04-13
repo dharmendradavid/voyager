@@ -24,18 +24,27 @@ class NoSqlModelDeleted
      *
      * @var string
      */
-    public $key;
+    public $primaryKey;
+
+    /**
+     * Secondary key for the content for table
+     *
+     * @var string
+     */
+    public $secondaryKey;
 
     /**
      * Create a new event instance.
      *
      * @param string $table Table where the content is to be saved
-     * @param string $key Primary key where content will be indexed with
+     * @param string $primaryKey Primary key where content will be indexed with
+     * @param string $secondaryKey Primary key where content will be indexed with
      */
-    public function __construct($table, $key)
+    public function __construct($table, $primaryKey, $secondaryKey)
     {
         $this->table = $table;
-        $this->key = $key;
+        $this->primaryKey = $primaryKey;
+        $this->secondaryKey = $secondaryKey;
     }
 
     /**

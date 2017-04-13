@@ -33,6 +33,6 @@ class NoSqlModelDeleted
             [
                 'name' => $event->table
             ]
-        ])->deleteItem($event->table, $event->key);
+        ])->deleteItem($event->table, $event->primaryKey, $event->secondaryKey);
     }
 }
