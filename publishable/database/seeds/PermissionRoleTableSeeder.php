@@ -17,8 +17,11 @@ class PermissionRoleTableSeeder extends Seeder
 
         $permissions = Permission::all();
 
-        $role->permissions()->sync(
-            $permissions->pluck('id')->all()
-        );
+        foreach ($permissions as $permission){
+            \TCG\Voyager\Models\PermissionRole::created([
+                'role_id' => $role->id,
+                'permission_id' => $permission->id,
+            ]);
+        }
     }
 }

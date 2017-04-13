@@ -6,8 +6,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use TCG\Voyager\Facades\Voyager;
 use TCG\Voyager\Http\Controllers\Traits\BreadRelationshipParser;
-use TCG\Voyager\Models\Menu;
-use TCG\Voyager\Models\MenuItem;
 
 class VoyagerBreadController extends Controller
 {
@@ -256,10 +254,12 @@ class VoyagerBreadController extends Controller
         $data = call_user_func([$dataType->model_name, 'findOrFail'], $id);
         //deleting items manually to remove content from no sql
 
-        if($data instanceof MenuItem) {
+        if(($dataType->slug == 'menus') || ($dataType->slug == 'roles')) {
+
             $items = $data->items()->get();
 
             foreach ($items as $item) {
+
                 $item->delete();
             }
         }

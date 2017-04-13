@@ -19,6 +19,14 @@ class Role extends Model
         return $this->belongsToMany(Voyager::modelClass('Permission'));
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function items()
+    {
+        return $this->hasMany(PermissionRole::class);
+    }
+
     public static function boot() {
 
         parent::boot();

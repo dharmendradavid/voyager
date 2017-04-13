@@ -12,6 +12,8 @@ class PermissionRole extends Model
 
     protected $guarded = [];
 
+    public $timestamps = false;
+
     /**
      * Booting event handlers thrown by models
      */
