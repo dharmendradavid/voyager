@@ -235,7 +235,19 @@ return [
         'table_suffix' => '',
         'primary_key_nosql' => 'Section',
         'secondary_key_nosql' => 'createdTimeStamp',
+        'secondary_key_mysql' => 'created_at',
         'items_table_name' => 'ItemsTable',
+        'media_items_table_name' => 'MediaItems',
+        'media_items_primary_key_nosql' => 'SeriesName',
+        'media_items_secondary_key_nosql' => 'MediaDate',
+        'media_items_secondary_key_mysql' => 'created_at',
+        'media_items_primary_key_mysql' => 'created_at',
+        'media_items_secondary_key_function' => function($item) {
+            return \Carbon\Carbon::parse($item)->timestamp;
+        },
+        'media_items_primary_key_function' => function($item) {
+            return md5($item);
+        },
         'secondary_key_function' => function($item){
             return \Carbon\Carbon::parse($item)->timestamp;
         },
