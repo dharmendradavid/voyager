@@ -29,7 +29,7 @@ class VoyagerRoleController extends VoyagerBreadController
         //insert all the permission for the role
         foreach ($request->input('permissions') as $permission){
 
-            \TCG\Voyager\Models\PermissionRole::create([
+            \TCG\Voyager\Models\PermissionRole::firstOrCreate([
                 'role_id' => $data->id,
                 'permission_id' => $permission,
             ]);
@@ -58,7 +58,7 @@ class VoyagerRoleController extends VoyagerBreadController
 
         foreach ($request->input('permissions') as $permission){
 
-            \TCG\Voyager\Models\PermissionRole::create([
+            \TCG\Voyager\Models\PermissionRole::firstOrCreate([
                 'role_id' => $data->id,
                 'permission_id' => $permission,
             ]);
