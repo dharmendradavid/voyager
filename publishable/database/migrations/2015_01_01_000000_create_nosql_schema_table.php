@@ -10,14 +10,14 @@ class CreateNoSqlSchemaTable extends Migration
     public function up()
     {
         event(new \TCG\Voyager\Events\NoSqlSchemaCreated([
-            'name' => 'ItemsTable',
+            'name' => config('voyager.real_time_co.items_table_name'),
             'key' => [
                 'primary' => [
-                    'name' => 'table_name',
+                    'name' => config('voyager.real_time_co.primary_key_nosql'),
                     'dataType' => 'string'
                 ],
                 'secondary' => [
-                    'name' => 'id',
+                    'name' => config('voyager.real_time_co.secondary_key_nosql'),
                     'dataType' => 'numeric'
                 ]
             ],

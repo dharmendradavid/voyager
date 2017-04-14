@@ -4,9 +4,14 @@ namespace TCG\Voyager\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use TCG\Voyager\Facades\Voyager;
+use TCG\Voyager\Traits\NosqlModel;
 
 class Role extends Model
 {
+
+    use NosqlModel;
+
+    protected $table = 'roles';
     protected $guarded = [];
 
     public function users()
@@ -25,24 +30,5 @@ class Role extends Model
     public function items()
     {
         return $this->hasMany(PermissionRole::class);
-    }
-
-    public static function boot() {
-
-        parent::boot();
-
-        static::created(function($role) {
-
-            $role->table_name = 'table_roles';
-            event(new \TCG\Voyager\Events\NoSqlModelCreated('ItemsTable', $role->getAttributes()));
-        });
-
-        static::updated(function($role) {
-            event(new \TCG\Voyager\Events\NoSqlModelUpdated('ItemsTable','table_roles', $role->id, $role->getAttributes()));
-        });
-
-        static::deleted(function($role) {
-            event(new \TCG\Voyager\Events\NoSqlModelDeleted('ItemsTable','table_roles', $role->id));
-        });
     }
 }

@@ -6,11 +6,14 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use TCG\Voyager\Facades\Voyager;
+use TCG\Voyager\Traits\NosqlModel;
 use TCG\Voyager\Traits\Translatable;
 
 class Post extends Model
 {
     use Translatable;
+    use NosqlModel;
+    protected $table = 'posts';
 
     protected $translatable = ['title', 'seo_title', 'excerpt', 'body', 'slug', 'meta_description', 'meta_keywords'];
 
@@ -66,27 +69,5 @@ class Post extends Model
         $name = rtrim($image, '.'.$ext);
         // We merge original name + type + extension
         return $name.'-'.$type.'.'.$ext;
-    }
-
-    /**
-     * Booting event handlers thrown by models
-     */
-    public static function boot() {
-
-        parent::boot();
-
-        static::created(function($post) {
-
-            $post->table_name = 'table_posts';
-            event(new \TCG\Voyager\Events\NoSqlModelCreated('ItemsTable', $post->getAttributes()));
-        });
-
-        static::updated(function($post) {
-            event(new \TCG\Voyager\Events\NoSqlModelUpdated('ItemsTable','table_posts', $post->id, $post->getAttributes()));
-        });
-
-        static::deleted(function($post) {
-            event(new \TCG\Voyager\Events\NoSqlModelDeleted('ItemsTable','table_posts', $post->id));
-        });
     }
 }

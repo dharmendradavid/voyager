@@ -6,11 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use TCG\Voyager\Database\Schema\SchemaManager;
 use TCG\Voyager\Facades\Voyager;
+use TCG\Voyager\Traits\NosqlModel;
 use TCG\Voyager\Traits\Translatable;
 
 class DataType extends Model
 {
     use Translatable;
+    use NosqlModel;
 
     protected $translatable = ['display_name_singular', 'display_name_plural'];
 
@@ -162,28 +164,5 @@ class DataType extends Model
         if (method_exists($model, 'adminFields')) {
             return $model->adminFields();
         }
-    }
-
-    /**
-     * Booting event handlers thrown by models
-     */
-    public static function boot() {
-
-        parent::boot();
-
-        static::created(function($dataType) {
-
-            $dataType->table_name = 'table_data_types';
-
-            event(new \TCG\Voyager\Events\NoSqlModelCreated('ItemsTable', $dataType->getAttributes()));
-        });
-
-        static::updated(function($dataType) {
-            event(new \TCG\Voyager\Events\NoSqlModelUpdated('ItemsTable','table_data_types', $dataType->id, $dataType->getAttributes()));
-        });
-
-        static::deleted(function($dataType) {
-            event(new \TCG\Voyager\Events\NoSqlModelDeleted('ItemsTable','table_data_types', $dataType->id));
-        });
     }
 }

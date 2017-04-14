@@ -1,21 +1,9 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: daviddharmendra
- * Date: 4/14/17
- * Time: 10:10 AM
- */
 
 namespace TCG\Voyager\Traits;
 
-
 trait NosqlModel
 {
-    public $getImageUrl = null;
-    public $getSummary = null;
-    public $getTitle = null;
-
-
     /**
      * Booting event handlers thrown by models
      */
@@ -26,17 +14,17 @@ trait NosqlModel
         static::created(function($content) {
 
             $tablename = config('voyager.real_time_co.table_prefix') .$content->table . config('voyager.real_time_co.table_suffix');
-            event(new \TCG\Voyager\Events\NoSqlModelCreated('ItemsTable', $content->getNoSqlAttributes($tablename, $content)));
+            event(new \TCG\Voyager\Events\NoSqlModelCreated(config('voyager.real_time_co.items_table_name'), $content->getNoSqlAttributes($tablename, $content)));
         });
 
         static::updated(function($content) {
             $tablename = config('voyager.real_time_co.table_prefix') .$content->table . config('voyager.real_time_co.table_suffix');
-            event(new \TCG\Voyager\Events\NoSqlModelUpdated('ItemsTable', $tablename, $content->{config('voyager.real_time_co.secondary_key_mysql')}, $content->getNoSqlAttributes($tablename, $content)));
+            event(new \TCG\Voyager\Events\NoSqlModelUpdated(config('voyager.real_time_co.items_table_name'), $tablename, $content->{config('voyager.real_time_co.secondary_key_mysql')}, $content->getNoSqlAttributes($tablename, $content)));
         });
 
         static::deleted(function($content) {
             $tablename = config('voyager.real_time_co.table_prefix') .$content->table . config('voyager.real_time_co.table_suffix');
-            event(new \TCG\Voyager\Events\NoSqlModelDeleted('ItemsTable', $tablename, $content->{config('voyager.real_time_co.secondary_key_mysql')}));
+            event(new \TCG\Voyager\Events\NoSqlModelDeleted(config('voyager.real_time_co.items_table_name'), $tablename, $content->{config('voyager.real_time_co.secondary_key_mysql')}));
         });
     }
 
@@ -52,12 +40,42 @@ trait NosqlModel
         $data = [
             'Section' => $tablename,
             'createdTimeStamp' => config('voyager.real_time_co')['secondary_key_function']($content->{config('voyager.real_time_co.secondary_key_mysql')}),
-            'imageURL' => $content->{$content->getImageURL},
+            'imageURL' => $content->{$content->getImageURL()},
             'metaData' => $content->getAttributes(),
-            'Summary' => $content->{$content->getSummary},
-            'Title' => $content->{$content->getTitle}
+            'Summary' => $content->{$content->getSummary()},
+            'Title' => $content->{$content->getTitle()}
         ];
 
         return $data;
+    }
+
+    /**
+     * Function returns the column in mysql in terms of nosql
+     *
+     * @return mixed
+     */
+    public function getImageURL()
+    {
+        return null;
+    }
+
+    /**
+     * Function returns the column in mysql in terms of nosql
+     *
+     * @return mixed
+     */
+    public function getSummary()
+    {
+        return null;
+    }
+
+    /**
+     * Function returns the column in mysql in terms of nosql
+     *
+     * @return mixed
+     */
+    public function getTitle()
+    {
+        return null;
     }
 }

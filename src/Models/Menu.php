@@ -5,12 +5,15 @@ namespace TCG\Voyager\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use TCG\Voyager\Facades\Voyager;
+use TCG\Voyager\Traits\NosqlModel;
 
 /**
  * @todo: Refactor this class by using something like MenuBuilder Helper.
  */
 class Menu extends Model
 {
+    use NosqlModel;
+
     protected $table = 'menus';
 
     protected $guarded = [];
@@ -83,27 +86,5 @@ class Menu extends Model
         return new \Illuminate\Support\HtmlString(
             \Illuminate\Support\Facades\View::make($type, ['items' => $menu->parent_items, 'options' => $options])->render()
         );
-    }
-
-    /**
-     * Booting event handlers thrown by models
-     */
-    public static function boot() {
-
-        parent::boot();
-
-        static::created(function($menu) {
-
-            $menu->table_name = 'table_menus';
-            event(new \TCG\Voyager\Events\NoSqlModelCreated('ItemsTable', $menu->getAttributes()));
-        });
-
-        static::updated(function($menu) {
-            event(new \TCG\Voyager\Events\NoSqlModelUpdated('ItemsTable','table_menus', $menu->id, $menu->getAttributes()));
-        });
-
-        static::deleted(function($menu) {
-            event(new \TCG\Voyager\Events\NoSqlModelDeleted('ItemsTable','table_menus', $menu->id));
-        });
     }
 }

@@ -230,7 +230,15 @@ return [
                 "updateTable" => ["*"],
                 "deleteTable" => ["*"]
             ]
-        ]
+        ],
+        'table_prefix' => '',
+        'table_suffix' => '',
+        'primary_key_nosql' => 'Section',
+        'secondary_key_nosql' => 'createdTimeStamp',
+        'items_table_name' => 'ItemsTable',
+        'secondary_key_function' => function($item){
+            return \Carbon\Carbon::parse($item)->timestamp;
+        },
     ]
 
 ];

@@ -4,11 +4,13 @@ namespace TCG\Voyager\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Route;
+use TCG\Voyager\Traits\NosqlModel;
 use TCG\Voyager\Traits\Translatable;
 
 class MenuItem extends Model
 {
     use Translatable;
+    use NosqlModel;
 
     protected $translatorMethods = [
         'link' => 'translatorLink',
@@ -82,27 +84,5 @@ class MenuItem extends Model
         }
 
         $this->attributes['url'] = $value;
-    }
-
-    /**
-     * Booting event handlers thrown by models
-     */
-    public static function boot()
-    {
-        parent::boot();
-
-        static::created(function($menuItem) {
-
-            $menuItem->table_name = 'table_menu_items';
-            event(new \TCG\Voyager\Events\NoSqlModelCreated('ItemsTable', $menuItem->getAttributes()));
-        });
-
-        static::updated(function($menuItem) {
-            event(new \TCG\Voyager\Events\NoSqlModelUpdated('ItemsTable','table_menu_items', $menuItem->id, $menuItem->getAttributes()));
-        });
-
-        static::deleted(function($menuItem) {
-            event(new \TCG\Voyager\Events\NoSqlModelDeleted('ItemsTable','table_menu_items', $menuItem->id));
-        });
     }
 }

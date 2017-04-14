@@ -4,11 +4,15 @@ namespace TCG\Voyager\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use TCG\Voyager\Traits\NosqlModel;
 use TCG\Voyager\Traits\Translatable;
 
 class Page extends Model
 {
     use Translatable;
+    use NosqlModel;
+
+    protected $table = 'pages';
 
     protected $translatable = ['title', 'slug', 'body'];
 
@@ -47,27 +51,5 @@ class Page extends Model
     public function scopeActive($query)
     {
         return $query->where('status', static::STATUS_ACTIVE);
-    }
-
-    /**
-     * Booting event handlers thrown by models
-     */
-    public static function boot() {
-
-        parent::boot();
-
-        static::created(function($page) {
-
-            $page->table_name = 'table_pages';
-            event(new \TCG\Voyager\Events\NoSqlModelCreated('ItemsTable', $page->getAttributes()));
-        });
-
-        static::updated(function($page) {
-            event(new \TCG\Voyager\Events\NoSqlModelUpdated('ItemsTable','table_pages', $page->id, $page->getAttributes()));
-        });
-
-        static::deleted(function($page) {
-            event(new \TCG\Voyager\Events\NoSqlModelDeleted('ItemsTable','table_pages', $page->id));
-        });
     }
 }

@@ -3,9 +3,14 @@
 namespace TCG\Voyager\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use TCG\Voyager\Traits\NosqlModel;
 
 class Permission extends Model
 {
+    use NosqlModel;
+
+    protected $table = 'permissions';
+
     protected $guarded = [];
 
     public function roles()
@@ -25,27 +30,5 @@ class Permission extends Model
     public static function removeFrom($table_name)
     {
         self::where(['table_name' => $table_name])->delete();
-    }
-
-    /**
-     * Booting event handlers thrown by models
-     */
-    public static function boot() {
-
-        parent::boot();
-
-        static::created(function($permission) {
-
-            $permission->table_name = 'table_permissions';
-            event(new \TCG\Voyager\Events\NoSqlModelCreated('ItemsTable', $permission->getAttributes()));
-        });
-
-        static::updated(function($permission) {
-            event(new \TCG\Voyager\Events\NoSqlModelUpdated('ItemsTable','table_permissions', $permission->id, $permission->getAttributes()));
-        });
-
-        static::deleted(function($permission) {
-            event(new \TCG\Voyager\Events\NoSqlModelDeleted('ItemsTable','table_permissions', $permission->id));
-        });
     }
 }

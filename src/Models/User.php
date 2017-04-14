@@ -4,12 +4,16 @@ namespace TCG\Voyager\Models;
 
 use Carbon\Carbon;
 use Illuminate\Foundation\Auth\User as AuthUser;
+use TCG\Voyager\Traits\NosqlModel;
 use TCG\Voyager\Traits\VoyagerUser;
 
 class User extends AuthUser
 {
+
+    use NosqlModel;
     use VoyagerUser;
 
+    protected $table = 'users';
     protected $guarded = [];
 
     /**
@@ -26,27 +30,5 @@ class User extends AuthUser
     public function setCreatedAtAttribute($value)
     {
         $this->attributes['created_at'] = Carbon::parse($value)->format('Y-m-d H:i:s');
-    }
-
-    /**
-     * Booting event handlers thrown by models
-     */
-    public static function boot() {
-
-        parent::boot();
-
-        static::created(function($user) {
-
-            $user->table_name = 'table_users';
-            event(new \TCG\Voyager\Events\NoSqlModelCreated('ItemsTable', $user->getAttributes()));
-        });
-
-        static::updated(function($user) {
-            event(new \TCG\Voyager\Events\NoSqlModelUpdated('ItemsTable','table_users', $user->id, $user->getAttributes()));
-        });
-
-        static::deleted(function($user) {
-            event(new \TCG\Voyager\Events\NoSqlModelDeleted('ItemsTable','table_users', $user->id));
-        });
     }
 }
