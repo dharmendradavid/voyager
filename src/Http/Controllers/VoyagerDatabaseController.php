@@ -59,7 +59,7 @@ class VoyagerDatabaseController extends Controller
             if (isset($request->create_model) && $request->create_model == 'on') {
                 $modelNamespace = config('voyager.models.namespace', app()->getNamespace());
                 $params = [
-                    'name' => $modelNamespace.Str::studly(Str::singular($table->name)),
+                    'name' => $table->name,
                 ];
 
                 // if (in_array('deleted_at', $request->input('field.*'))) {
@@ -79,8 +79,8 @@ class VoyagerDatabaseController extends Controller
             }
 
             return redirect()
-               ->route('voyager.database.edit', $table->name)
-               ->with($this->alertSuccess("Successfully created {$table->name} table"));
+                ->route('voyager.database.edit', $table->name)
+                ->with($this->alertSuccess("Successfully created {$table->name} table"));
         } catch (Exception $e) {
             return back()->with($this->alertException($e))->withInput();
         }
@@ -123,8 +123,8 @@ class VoyagerDatabaseController extends Controller
         }
 
         return redirect()
-               ->route('voyager.database.edit', $table['name'])
-               ->with($this->alertSuccess("Successfully updated {$table['name']} table"));
+            ->route('voyager.database.edit', $table['name'])
+            ->with($this->alertSuccess("Successfully updated {$table['name']} table"));
     }
 
     protected function prepareDbManager($action, $table = '')

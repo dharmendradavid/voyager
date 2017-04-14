@@ -83,8 +83,9 @@ class MakeModelCommand extends ModelMakeCommand
 
     public function addTableName(&$stub, $name)
     {
-        $class = str_replace($this->getNamespace($name).'\\', '', $name);
-        $stub = str_replace('//DummyTableName', strtolower($class), $stub);
+        $name = explode('\\', $name);
+        $name = $name[count($name) - 1];
+        $stub = str_replace('//DummyTableName', $name, $stub);
 
         return $this;
     }

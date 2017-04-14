@@ -11,6 +11,6 @@ class DummyClass extends Model
     //DummySDTrait
     use NosqlModel;
 
-    protected $table = //DummyTableName
+    protected $table = '//DummyTableName';
 
 }
