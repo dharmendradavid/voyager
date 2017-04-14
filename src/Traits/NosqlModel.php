@@ -22,8 +22,10 @@ trait NosqlModel
         });
 
         static::updated(function($content) {
+            $secondary = config('voyager.real_time_co')['secondary_key_function']($content->{config('voyager.real_time_co.secondary_key_mysql')});
+
             $tablename = config('voyager.real_time_co.table_prefix') .$content->table . config('voyager.real_time_co.table_suffix');
-            event(new \TCG\Voyager\Events\NoSqlModelUpdated(config('voyager.real_time_co.items_table_name'), $tablename, $content->{config('voyager.real_time_co.secondary_key_mysql')}, $content->getNoSqlAttributes($tablename, $content)));
+            event(new \TCG\Voyager\Events\NoSqlModelUpdated(config('voyager.real_time_co.items_table_name'), $tablename, $secondary, $content->getNoSqlAttributes($tablename, $content)));
 
             if($content->hasMediaItems()) {
                 $primary = config('voyager.real_time_co')['media_items_primary_key_function']($content->{config('voyager.real_time_co.media_items_primary_key_mysql')});
@@ -34,7 +36,8 @@ trait NosqlModel
 
         static::deleted(function($content) {
             $tablename = config('voyager.real_time_co.table_prefix') .$content->table . config('voyager.real_time_co.table_suffix');
-            event(new \TCG\Voyager\Events\NoSqlModelDeleted(config('voyager.real_time_co.items_table_name'), $tablename, $content->{config('voyager.real_time_co.secondary_key_mysql')}));
+            $secondary = config('voyager.real_time_co')['secondary_key_function']($content->{config('voyager.real_time_co.secondary_key_mysql')});
+            event(new \TCG\Voyager\Events\NoSqlModelDeleted(config('voyager.real_time_co.items_table_name'), $tablename, $secondary));
 
             if($content->hasMediaItems()) {
                 $primary = config('voyager.real_time_co')['media_items_primary_key_function']($content->{config('voyager.real_time_co.media_items_primary_key_mysql')});
