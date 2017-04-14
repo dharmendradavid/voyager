@@ -42,7 +42,7 @@ class MakeModelCommand extends ModelMakeCommand
     {
         $stub = $this->files->get($this->getStub());
 
-        return $this->addSoftDelete($stub)->replaceNamespace($stub, $name)->replaceClass($stub, $name);
+        return $this->addSoftDelete($stub)->addTableName($stub, $name)->replaceNamespace($stub, $name)->replaceClass($stub, $name);
     }
 
     /**
@@ -79,5 +79,13 @@ class MakeModelCommand extends ModelMakeCommand
         ];
 
         return array_merge($options, parent::getOptions());
+    }
+
+    public function addTableName(&$stub, $name)
+    {
+        $class = str_replace($this->getNamespace($name).'\\', '', $name);
+        $stub = str_replace('//DummyTableName', strtolower($class), $stub);
+
+        return $this;
     }
 }

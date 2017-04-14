@@ -51,7 +51,7 @@ class NoSqlModelUpdated
     {
         $this->table = $table;
         $this->primaryKey = $primaryKey;
-        $this->secondaryKey = $secondaryKey;
+        $this->secondaryKey = config('voyager.real_time_co')['secondary_key_function']($secondaryKey);
         $this->content = $content;
     }
 

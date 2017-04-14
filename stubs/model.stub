@@ -4,8 +4,13 @@ namespace DummyNamespace;
 
 use Illuminate\Database\Eloquent\Model;
 //DummySDTraitInclude
+use TCG\Voyager\Traits\NosqlModel;
 
 class DummyClass extends Model
 {
     //DummySDTrait
+    use NosqlModel;
+
+    protected $table = //DummyTableName
+
 }

@@ -168,7 +168,8 @@ class NoSqlWrapper
      */
     public function updateItem($table, $primaryKey, $secondaryKey, $content)
     {
-        unset($content['id']);
+        unset($content[config('voyager.real_time_co.secondary_key_nosql')]);
+        unset($content[config('voyager.real_time_co.primary_key_nosql')]);
 
         $content = $this->checkContent($content);
 
